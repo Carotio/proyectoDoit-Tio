@@ -9,13 +9,30 @@
     color: #153840;
     background-color: #F2F2F2;
     display: flex;
+    align-items: center;
+    text-align: center;
     justify-content: space-between;
     align-items: center;
-    vertical-align: center;
-    text-align: center;
     font-size: 14px;
     text-transform: uppercase; 
     height: 95px;
     width: 100%;
-    margin: 0 60px;
+}
+
+.nav{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.activo {
+    color: #153840;
+    margin: 30px;
+}
+
+.inactivo {
+    color: #658C3E;
+    margin: 30px;
 }

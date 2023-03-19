@@ -99,7 +99,6 @@ const Cart = () => {
                         </div>
                     }
                 </div>
-
             </div >
 
 

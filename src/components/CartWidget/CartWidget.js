@@ -9,7 +9,10 @@ export default function CartWidget() {
     useEffect (() => {setTotal(cart.reduce((previo, actual) => previo + actual.quantity, 0 ))}, [cart])
     return (
         <Link to ={'/cart'}>
-            <div>
+            <div style={{
+        fontSize: '14px', display: "flex", flexDirection: "column", justifyContent: 'center',
+        alignItems: 'center'
+    }} >
                 <img style={{ height: '30px', width: '30px', margin: '0 40px' }} src={cesta} alt="ícono de cesta" /> {total}
             </div>
         </Link>

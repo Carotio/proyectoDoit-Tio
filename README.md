@@ -1,6 +1,6 @@
 # Tu plantita
 
-![] (./.gif)
+![] (./VideoGif.gif)
 
 # Descripción 
 Se trata de un ecomerse de plantas, en el cual hay tres categorias para escoger. Suculentas, Comestibles y de Decoración.

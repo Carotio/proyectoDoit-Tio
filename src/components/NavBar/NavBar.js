@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import logo from '../../img/logo.png';
 import CartWidget from '../CartWidget/CartWidget';
 
+
 export default function NavBar() {
     return (
         <section className="header">
@@ -26,7 +27,6 @@ export default function NavBar() {
                         to="/category/Decoración">Decoración</NavLink>
                 </li>
             </div>
-
             <CartWidget />
         </section>
     )

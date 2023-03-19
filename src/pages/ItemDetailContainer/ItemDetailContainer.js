@@ -1,33 +1,37 @@
-import { plants } from "../../components/data/plants";
 import { useEffect, useState } from "react";
 import ItemDetail from "../../components/ItemDetail/ItemDetail"
 import { useParams } from "react-router-dom";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 const ItemDetailContainer = () => {
     const { id } = useParams();
 
     const [detailProduct, setDetailProduct] = useState({});
 
-    const getPlants = new Promise((resolve, reject) => {
-        setTimeout(() => {
+    const getPlants = () => {
+        const db = getFirestore();
+        const querySnapshot = doc(db, 'plants', id);
 
-            const findPlant = plants.find((item) => item.id == id);
-            resolve(findPlant)
-        }, 1000)
-    });
+        getDoc(querySnapshot)
+            .then((res) => {
+                setDetailProduct({
+                    id: res.id, ...res.data()
+                })
+            })
+            .catch((error) => { console.log(error) })
+
+    }
+
 
     useEffect(() => {
-        getPlants
-            .then(response => {
-                setDetailProduct(response)
-            })
-            .catch((error) => console.log(error))
-    }, [])
+    
+        getPlants();
+    }, []);
+        return (
+            <div>
+                <ItemDetail detail={detailProduct} />
+            </div>
+        );
+    }
 
-    return (
-        <div>
-            <ItemDetail detail={detailProduct} />
-        </div>
-    );
-}
 export default ItemDetailContainer;

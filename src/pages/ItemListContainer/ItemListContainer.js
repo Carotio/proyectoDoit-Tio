@@ -1,30 +1,46 @@
-import { plants } from '../../components/data/plants';
 import { useEffect, useState } from 'react';
 import ItemList from '../../components/ItemList/ItemList';
 import { useParams } from 'react-router-dom';
+import { getFirestore, getDocs, collection, query, where } from 'firebase/firestore'
 
-export default function ItemListContainer({ greeting }) {
+export default function ItemListContainer({ }) {
     const [plantList, setPlantList] = useState([]);
     const { categoryId } = useParams();
 
-    const getPlants = new Promise((resolve, reject) => {
+    //base de datos
+
+    const getPlants = () => {
+        const db = getFirestore();
+        const querySnapshot = collection(db, 'plants')
+        //filtrado
         if (categoryId) {
-            const filtrarProductos = plants.filter((item) => item.category === categoryId);
-            setTimeout(() => {
-                resolve(filtrarProductos);
-            }, 1000)
+            const filtrado = query(querySnapshot, where('category', '==', categoryId));
+            getDocs(filtrado)
+                .then((response) => {
+                    const list = response.docs.map((doc) => {
+                        return {
+                            id: doc.id, ...doc.data()
+                        }
+                    })
+                    setPlantList(list);
+                })
+                .catch((error) => { console.log(error) })
         } else {
-            setTimeout(() => {
-                resolve(plants);
-            }, 2000)
+            getDocs(querySnapshot)
+                .then((response) => {
+                    const list = response.docs.map((doc) => {
+                        return {
+                            id: doc.id, ...doc.data()
+                        }
+                    })
+                    setPlantList(list);
+                })
+                .catch((error) => { console.log(error) })
         }
-    });
+    }
 
     useEffect(() => {
-        getPlants.then((response) => {
-            setPlantList(response)
-        })
-            .catch((error) => { console.log(error) })
+        getPlants();
     }, [categoryId])
 
     return <h2 style={{
@@ -33,4 +49,4 @@ export default function ItemListContainer({ greeting }) {
     }}>
         <ItemList plantList={plantList} />
     </h2>;
-}
+} 

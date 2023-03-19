@@ -1,25 +1,24 @@
-import { useState } from 'react';
-import { plants } from '../data/plants';
 
+const ItemCount = ({count, setCount, item}) => {
 
-const ItemCount = () => {
-    const [ItemCount, setItemCount] = useState(0);
-    const stock = (2); 
+    const stock = (item.stock); 
     const agregar = () => {
-        if (ItemCount!== stock)
-        setItemCount(ItemCount + 1);
+        if (count!== stock)
+        setCount(count + 1);
     };
     const quitar = () => {
-        if (ItemCount !== 0) {
-            setItemCount(ItemCount - 1);
-        }
+        if (count === 0) {
+            return;
+        }    
+        setCount(count - 1);
     };
+
     return (
         <div>
-            <h2>{ItemCount}</h2>
-            <div>
-                <button onClick={agregar}>+</button>
-                <button onClick={quitar}>-</button>
+            <div className="contador" >
+                <button className="manejador"  onClick={agregar}>+</button>
+                    <span>{count}</span>
+                <button className="manejador"  onClick={quitar}>-</button>
             </div>
         </div>
     );
